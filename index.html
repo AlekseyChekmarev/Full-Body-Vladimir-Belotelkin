@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>План тренировок — Белотелкин Владимир</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html,body{margin:0;padding:0;overflow-x:hidden;overscroll-behavior:none}
+:root{
+  --bg:#0f0e0c;
+  --bg2:#16150f;
+  --bg3:#1e1d17;
+  --accent:#d4743d;
+  --accent-light:#e89052;
+  --accent-dim:#8a5f1f;
+  --text:#e8e4d8;
+  --text-dim:#a09580;
+  --text-muted:#6b6552;
+  --green:#3a7d44;
+  --green-light:#4fa858;
+  --red:#b83a3a;
+  --blue:#4a7ba7;
+  --blue-light:#5f9bc8;
+  --radius:12px
+}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,'Segoe UI','Helvetica Neue',sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  min-height:100dvh;
+  padding-bottom:env(safe-area-inset-bottom)
+}
+.header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:var(--bg);
+  border-bottom:1px solid #2a2515;
+  padding:env(safe-area-inset-top) 0 0
+}
+.header-inner{padding:14px 16px 12px;display:flex;justify-content:space-between;align-items:center}
+.header-left{display:flex;flex-direction:column}
+.logo-text{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:.02em;
+  line-height:1.1;
+  margin-bottom:4px
+}
+.logo-aleksey{
+  background: linear-gradient(90deg, #d4743d 0%, #d4743d 50%, #ffffff 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 100%;
+  background-position: 0% 0%;
+}
+.logo-chekmarev{
+  background: linear-gradient(90deg, #ffffff 0%, #ffffff 50%, #d4743d 50%, #d4743d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 100%;
+  background-position: 0% 0%;
+}
+.header-subtitle{
+  font-size:12px;
+  color:var(--accent);
+  font-family:-apple-system,'Segoe UI','Helvetica Neue',sans-serif;
+  font-weight:600;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  margin-top:2px
+}
+.header-right{
+  text-align:right;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end
+}
+.client-name{
+  font-size:16px;
+  font-weight:700;
+  color:var(--text);
+  margin:0;
+  line-height:1.2
+}
+.client-label{
+  font-size:11px;
+  color:var(--text-muted);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  margin:0;
+  margin-bottom:2px
+}
+.tabs-wrap{
+  position:sticky;
+  top:70px;
+  z-index:90;
+  background:var(--bg);
+  border-bottom:1px solid #2a2515
+}
+.tabs{
+  display:flex;
+  overflow-x:auto;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+  padding:0 8px
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab-btn{
+  flex-shrink:0;
+  padding:11px 14px;
+  font-family:-apple-system,'Segoe UI','Helvetica Neue',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:var(--text-muted);
+  background:none;
+  border:none;
+  border-bottom:3px solid transparent;
+  cursor:pointer;
+  transition:color .2s ease,border-color .2s ease;
+  white-space:nowrap;
+  min-height:44px;
+  touch-action:manipulation
+}
+.tab-btn.active{
+  color:var(--accent-light);
+  border-bottom-color:var(--accent)
+}
+.main{padding:12px 0}
+.tab-content{
+  display:none;
+  padding:0 16px 24px
+}
+.tab-content.active{display:block}
+.card{
+  background:var(--bg2);
+  border:1px solid #2a2515;
+  border-radius:var(--radius);
+  padding:16px;
+  margin-bottom:12px
+}
+.card-title{
+  font-size:13px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  color:var(--accent);
+  margin:0 0 14px;
+  font-family:-apple-system,'Segoe UI','Helvetica Neue',sans-serif
+}
+.stats-row{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-bottom:12px
+}
+.stat-box{
+  background:var(--bg3);
+  border:1px solid #2a2515;
+  border-radius:8px;
+  padding:14px;
+  text-align:center
+}
+.stat-label{
+  font-family:-apple-system,'Segoe UI','Helvetica Neue',sans-serif;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:var(--text-muted);
+  margin:0 0 5px
+}
+.stat-value{
+  font-size:24px;
+  font-weight:700;
+  color:var(--accent-light);
+  line-height:1.1
+}
+.stat-unit{
+  font-size:12px;
+  color:var(--text-muted);
+  font-family:-apple-system,'Segoe UI','Helvetica Neue',sans-serif
+}
+.day-tabs{
+  display:flex;
+  overflow-x:auto;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+  gap:6px;
+  margin-bottom:14px;
+  padding-bottom:4px
+}
+.day-tabs::-webkit-scrollbar{display:none}
+.day-btn{
+  flex-shrink:0;
+  padding:9px 15px;
+  font-family:-apple-system,'Segoe UI','Helvetica Neue',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  color:var(--text-muted);
+  background:var(--bg3);
+  border:1px solid #2a2515;
+  border-radius:8px;
+  cursor:pointer;
+  transition:all .2s ease;
+  min-height:40px;
+  touch-action:manipulation
+}
+.day-btn.active{
+  color:var(--bg);
+  background:var(--accent);
+  border-color:var(--accent)
+}
+.day-content{display:none}
+.day-content.active{display:block}
+.exercise-block{
+  background:var(--bg3);
+  border-left:4px solid var(--accent);
+  border-radius:0 8px 8px 0;
+  padding:12px 14px;
+  margin-bottom:10px
+}
+.exercise-name{
+  font-family:-apple-system,'Segoe UI','Helvetica Neue',sans-serif;
+  font-size:15px;
+  font-weight:700;
+  color:var(--text);
+  margin:0 0 4px
+}
+.exercise-details{
+  font-size:13px;
+  color:var(--text-dim);
+  margin:0;
+  line-height:1.5
+}
+.exercise-details strong{
+  color:var(--accent-light);
+  font-weight:700
+}
+.warmup-block{
+  background:rgba(74,123,167,.12);
+  border-left:4px solid var(--blue);
+  border-radius:0 8px 8px 0;
+  padding:12px 14px;
+  margin-bottom:10px
+}
+.warmup-title{
+  font-family:-apple-system,'Segoe UI','Helvetica Neue',sans-serif;
+  font-size:11px;
+  font-weight:700;
+  color:var(--blue-light);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  margin:0 0 4px
+}
+.warmup-text{
+  font-size:14px;
+  color:var(--text);
+  margin:0;
+  line-height:1.5
+}
+.rest-block{
+  background:var(--bg3);
+  border:1px solid #2a2515;
+  border-radius:8px;
+  padding:14px;
+  text-align:center;
+  margin-bottom:12px
+}
+.rest-icon{font-size:28px;margin-bottom:4px;display:block}
+.rest-label{
+  font-family:-apple-system,'Segoe UI','Helvetica Neue',sans-serif;
+  font-size:12px;
+  color:var(--text-muted);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  margin:0 0 2px
+}
+.rest-value{
+  font-size:18px;
+  font-weight:700;
+  color:var(--accent-light);
+  margin:0
+}
+.supp-card{
+  background:var(--bg3);
+  border:1px solid #2a2515;
+  border-radius:8px;
+  padding:13px;
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  margin-bottom:10px
+}
+.supp-icon{
+  font-size:22px;
+  flex-shrink:0;
+  width:32px;
+  text-align:center;
+  line-height:1
+}
+.supp-info{flex:1}
+.supp-time{
+  font-family:-apple-system,'Segoe UI','Helvetica Neue',sans-serif;
+  font-size:11px;
+  font-weight:700;
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  margin:0 0 2px
+}
+.supp-name{
+  font-size:15px;
+  font-weight:700;
+  color:var(--text);
+  margin:0 0 3px
+}
+.supp-dose{
+  font-size:13px;
+  color:var(--text-muted);
+  font-family:-apple-system,'Segoe UI','Helvetica Neue',sans-serif;
+  margin:0
+}
+.warning-box{
+  background:rgba(184,58,58,.09);
+  border:1px solid rgba(184,58,58,.25);
+  border-left:4px solid var(--red);
+  border-radius:8px;
+  padding:14px;
+  margin-bottom:10px
+}
+.warning-title{
+  font-family:-apple-system,'Segoe UI','Helvetica Neue',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  color:var(--red);
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  margin:0 0 5px
+}
+.warning-text{
+  font-size:14px;
+  color:var(--text-dim);
+  margin:0;
+  line-height:1.6
+}
+.info-box{
+  background:rgba(74,123,167,.1);
+  border:1px solid rgba(74,123,167,.25);
+  border-left:4px solid var(--blue);
+  border-radius:8px;
+  padding:14px;
+  margin-bottom:10px
+}
+.info-title{
+  font-family:-apple-system,'Segoe UI','Helvetica Neue',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  color:var(--blue-light);
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  margin:0 0 5px
+}
+.info-text{
+  font-size:14px;
+  color:var(--text-dim);
+  margin:0;
+  line-height:1.6
+}
+.checklist-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:11px 0;
+  border-bottom:1px solid #1a1914;
+  cursor:pointer;
+  touch-action:manipulation;
+  min-height:44px
+}
+.checklist-item:last-child{border-bottom:none}
+.custom-cb{
+  width:24px;
+  height:24px;
+  border-radius:6px;
+  border:2px solid var(--accent-dim);
+  background:transparent;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  transition:background .15s ease,border-color .15s ease
+}
+.custom-cb.checked{
+  background:var(--green);
+  border-color:var(--green-light)
+}
+.custom-cb-tick{
+  display:none;
+  color:#fff;
+  font-size:14px;
+  font-weight:700
+}
+.custom-cb.checked .custom-cb-tick{display:block}
+.checklist-label{
+  font-size:15px;
+  color:var(--text);
+  transition:color .2s ease,text-decoration .2s ease
+}
+.checklist-label.done{
+  color:var(--text-muted);
+  text-decoration:line-through
+}
+table{width:100%;border-collapse:collapse;font-size:14px}
+table tr{border-bottom:1px solid #2a2515}
+table td{padding:10px 8px;color:var(--text)}
+table td:first-child{color:var(--accent-light);font-weight:700;width:70px}
+@media(prefers-reduced-motion:reduce){
+  .tab-btn,.day-btn,.custom-cb,.checklist-label{transition:none!important}
+}
+</style>
+</head>
+<body>
+<header class="header">
+<div class="header-inner">
+  <div class="header-left">
+    <div class="logo-text">
+      <span class="logo-aleksey">ALEKSEY</span><br>
+      <span class="logo-chekmarev">CHEKMAREV</span>
+    </div>
+    <div class="header-subtitle">ТВОЙ ПЕРСОНАЛЬНЫЙ ТРЕНЕР</div>
+  </div>
+  <div class="header-right">
+    <div class="client-label">Клиент</div>
+    <div class="client-name">Белотелкин<br>Владимир</div>
+  </div>
+</div>
+</header>
+<nav class="tabs-wrap">
+<div class="tabs">
+<button class="tab-btn active" data-tab="overview">Обзор</button>
+<button class="tab-btn" data-tab="day-a">День A</button>
+<button class="tab-btn" data-tab="day-b">День B</button>
+<button class="tab-btn" data-tab="day-c">День C</button>
+</div>
+</nav>
+<main class="main">
+
+<!-- ═══ ОБЗОР ═══ -->
+<section class="tab-content active" id="tab-overview">
+<div class="card">
+<div class="card-title">Программа Full Body</div>
+<p style="color:var(--text);margin:0 0 14px;line-height:1.6">3 тренировки в неделю. Каждая тренировка прорабатывает все основные группы мышц: ноги, грудь, спина, плечи и руки. Система обеспечивает максимальный стимул для роста мышц при частоте 3 раза в неделю.</p>
+
+<div class="stats-row">
+<div class="stat-box"><div class="stat-label">Частота</div><div class="stat-value">3<span class="stat-unit">раз/нед</span></div></div>
+<div class="stat-box"><div class="stat-label">Длительность</div><div class="stat-value">60<span class="stat-unit">мин</span></div></div>
+<div class="stat-box"><div class="stat-label">Упражнений</div><div class="stat-value">8-9<span class="stat-unit">за тренир.</span></div></div>
+<div class="stat-box"><div class="stat-label">Отдых между</div><div class="stat-value">45-90<span class="stat-unit">сек</span></div></div>
+</div>
+</div>
+
+<div class="info-box">
+<div class="info-title">💡 Принцип прогрессии</div>
+<p class="info-text">Каждые 2 недели увеличивайте вес на 1 - 2.5 кг ИЛИ добавляйте 1–2 повторения в последнем подходе. Если упражнение даётся легко — пора добавлять вес.</p>
+</div>
+
+<div class="card">
+<div class="card-title">Расписание</div>
+<table>
+<tr><td>Пн</td><td>💪 Full Body A</td></tr>
+<tr><td>Ср</td><td>🔥 Full Body B</td></tr>
+<tr><td>Пт</td><td>⚡ Full Body C</td></tr>
+<tr><td>Сб-Вс</td><td style="color:var(--green-light)">🚶 Активный отдых</td></tr>
+</table>
+</div>
+</section>
+
+<!-- ═══ ДЕНЬ A ═══ -->
+<section class="tab-content" id="tab-day-a">
+<div class="warmup-block">
+<div class="warmup-title">🔥 Разминка — 10 минут</div>
+<p class="warmup-text">Вращение головой(полуось) х 10 → Вращение плечами вперед ×10/назад х10 → Вращения локтями ×10 → Вращения кистями ×10 → Легкий бег или эллипс 5 минут</p>
+</div>
+
+<div class="card">
+<div class="card-title">Full Body A — Базовый день</div>
+
+<div class="exercise-block">
+<div class="exercise-name">1. Приседания в тренажере колодец</div>
+<p class="exercise-details"><strong>4 подхода × 10–12 повторений</strong> · Отдых 90 сек<br>Ноги на ширине плеч, носки чуть врозь. Приседайте до параллели бёдра с полом. Спина прямая, взгляд вперёд. Опускайтесь подконтрольно, выжимайте усилием пяток.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">2. Жим гантелей на наклонной скамье (30°)</div>
+<p class="exercise-details"><strong>4 подхода × 10–12 повторений</strong> · Отдых 90 сек<br>Скамья 30°, гантели на уровне груди. Жмите вверх до почти полного выпрямления. Сводите гантели в верхней точке. Локти под углом 45° к корпусу. Не прогибайтесь в пояснице.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">3. Тяга штанги в наклоне в Смитте</div>
+<p class="exercise-details"><strong>4 подхода × 10–12 повторений</strong> · Отдых 60 сек<br>Наклон 45°, спина прямая. Тяните штангу к поясу, сводя лопатки. Локти идут вдоль корпуса. Опускайте вес медленно, чувствуйте растяжение широчайших.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">4. Жим гантелей сидя (плечи)</div>
+<p class="exercise-details"><strong>3 подхода × 10–12 повторений</strong> · Отдых 60 сек<br>Сидя со спинкой, гантели на уровне плеч. Выжимайте вверх до почти полного выпрямления. Не прогибайтесь в пояснице. Опускайте до уровня ушей.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">5. Подъём штанги на бицепс стоя</div>
+<p class="exercise-details"><strong>3 подхода × 10–12 повторений</strong> · Отдых 45 сек<br>Штанга на уровне бёдер, локти прижаты к корпусу. Поднимайте до полного сокращения, опускайте медленно. Не раскачивайте корпус.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">6. Разгибание рук на блоке (трицепс)</div>
+<p class="exercise-details"><strong>3 подхода × 12–15 повторений</strong> · Отдых 45 сек<br>Локти прижаты к корпусу. Разгибайте руки вниз до полного выпрямления. В нижней точке разводите рукоять в стороны для пикового сокращения.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">7. Жим гантелей лёжа на горизонтальной скамье</div>
+<p class="exercise-details"><strong>3 подхода × 10–12 повторений</strong> · Отдых 60 сек<br>Локти под углом 45° к корпусу. Ноги плотно на полу. Гантели на уровне груди. Жмите вверх до почти полного выпрямления. Опускайте к середине груди.</p>
+</div>
+</div>
+
+<div class="rest-block">
+<span class="rest-icon">🧘</span>
+<div class="rest-label">Растяжка — 5 минут</div>
+<p class="rest-value" style="font-size:14px;color:var(--text-dim)">Растяжка груди у стены ×30 сек · Растяжка спины "кошка-корова" ×1 мин · Растяжка квадрицепса стоя ×30 сек каждая нога</p>
+</div>
+</section>
+
+<!-- ═══ ДЕНЬ B ═══ -->
+<section class="tab-content" id="tab-day-b">
+<div class="warmup-block">
+<div class="warmup-title">🔥 Разминка — 10 минут</div>
+<p class="warmup-text">Вращение головой(полуось) х 10 → Вращение плечами вперед ×10/назад х10 → Вращения локтями ×10 → Вращения кистями ×10 → Круговые движения тазом ×10</p>
+</div>
+
+<div class="card">
+<div class="card-title">Full Body B — Акцент на заднюю цепь</div>
+
+<div class="exercise-block">
+<div class="exercise-name">1. Румынская тяга с гантелями</div>
+<p class="exercise-details"><strong>4 подхода × 10–12 повторений</strong> · Отдых 60 сек<br>Ноги чуть уже плеч, колени мягко согнуты. Наклоняйтесь с прямой спиной, опуская гантели вдоль ног. Чувствуйте растяжение бицепса бедра. Поднимайтесь за счёт ягодиц.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">2. Жим в тренажёре ПЕК-ДЕК</div>
+<p class="exercise-details"><strong>4 подхода × 10–12 повторений</strong> · Отдых 60 сек<br>Устанавливаем рычаги на 3 отверстие (по центру). Сидение опускаем на 3 уровень относительно верхнего положения. Сводите рукоятки к центру, не блокируйте локти. Локти параллельно полу.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">3. Тяга вертикального блока (широкий хват)</div>
+<p class="exercise-details"><strong>4 подхода × 10–12 повторений</strong> · Отдых 60 сек<br>Руки шире плеч. Тяните рукоятку к груди. Локти идут вдоль корпуса. Сводите лопатки в нижней точке. Не отклоняйтесь сильно назад.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">4. Отведение гантелей в стороны (плечи)</div>
+<p class="exercise-details"><strong>3 подхода × 12–15 повторений</strong> · Отдых 45 сек<br>Гантели чуть шире бёдер, поднимайте до уровня плеч. Локти слегка согнуты. Не задирайте плечи к ушам. Контролируйте вес, не инерция.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">5. Молотковые сгибания с гантелями</div>
+<p class="exercise-details"><strong>3 подхода × 12 повторений</strong> · Отдых 45 сек<br>Ладони смотрят друг на друга. Поднимайте гантель к плечу, акцент на брахиалис и предплечья. Локти зафиксированы по бокам.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">6. Французский жим лёжа со штангой</div>
+<p class="exercise-details"><strong>3 подхода × 10–12 повторений</strong> · Отдых 45 сек<br>Штанга опускается ко лбу, локти зафиксированы. Опускайте на вдохе, выжимайте на выдохе. Не разводите локти в стороны.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">7. Кроссовер (сведение рук на блоках снизу вверх)</div>
+<p class="exercise-details"><strong>3 подхода × 12–15 повторений</strong> · Отдых 45 сек<br>Установите троса в нижней точке. Стоя между блоками, сводите руки перед собой дугообразно. Пиковое сокращение в точке сведения. Медленное возвращение.</p>
+</div>
+</div>
+
+<div class="rest-block">
+<span class="rest-icon">🧘</span>
+<div class="rest-label">Растяжка — 5 минут</div>
+<p class="rest-value" style="font-size:14px;color:var(--text-dim)">Растяжка бицепса бедра сидя ×30 сек · Растяжка грудных у стены ×30 сек · Растяжка задней дельты (рука через грудь) ×30 сек</p>
+</div>
+</section>
+
+<!-- ═══ ДЕНЬ C ═══ -->
+<section class="tab-content" id="tab-day-c">
+<div class="warmup-block">
+<div class="warmup-title">🔥 Разминка — 10 минут</div>
+<p class="warmup-text">Вращение головой(полуось) х 10 → Вращение плечами вперед ×10/назад х10 → Вращения локтями ×10 → Вращения кистями ×10 → Выпады на месте без веса ×10 на каждую ногу</p>
+</div>
+
+<div class="card">
+<div class="card-title">Full Body C — Объем и детализация</div>
+
+<div class="exercise-block">
+<div class="exercise-name">1. Жим ногами в тренажёре</div>
+<p class="exercise-details"><strong>4 подхода × 12–15 повторений</strong> · Отдых 60 сек<br>Стопы на платформе на ширине плеч. Опускайте до угла 90° в коленях. Не выпрямляйте колени полностью вверху. Держите поясницу прижатой к спинке.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">2. Отжимания на брусьях (акцент на грудь)</div>
+<p class="exercise-details"><strong>3 подхода × макс (цель 8–12)</strong> · Отдых 60 сек<br>Наклоните корпус вперёд, локти чуть в стороны. Опускайтесь до угла 90° в локтях. Если легко — добавьте вес. Поднимайтесь до почти полного выпрямления рук.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">3. Тяга горизонтального блока к поясу (сидя)</div>
+<p class="exercise-details"><strong>4 подхода × 12–15 повторений</strong> · Отдых 45 сек<br>Сидя, спина прямая. Тяните ручку к поясу, сводя лопатки. Не раскачивайтесь корпусом. Фиксируйте таз, работайте только руками и спиной.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">4. Обратные махи с гантелями наклонные</div>
+<p class="exercise-details"><strong>3 подхода × 12–15 повторений</strong> · Отдых 45 сек<br>Наклон вперёд 45°, спина прямая. Разводите гантели в стороны до уровня плеч. Чувствуйте заднюю дельту. Локти слегка согнуты.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">5. Сгибание рук на бицепс с гантелями сидя</div>
+<p class="exercise-details"><strong>3 подхода × 12 повторений</strong> · Отдых 45 сек<br>Сидя на скамье, локти на бёдрах. Полное сокращение в верхней точке, медленное опускание. Не помогайте корпусом.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">6. Жим гантели сидя (трицепс над головой)</div>
+<p class="exercise-details"><strong>3 подхода × 10–12 повторений</strong> · Отдых 45 сек<br>Гантели в сложенном виде за головой, разгибайте руки вверх. Локти не разводите в стороны. Опускайте до уровня ушей.</p>
+</div>
+
+<div class="exercise-block">
+<div class="exercise-name">7. Разведение гантелей лёжа (махи)</div>
+<p class="exercise-details"><strong>3 подхода × 12–15 повторений</strong> · Отдых 45 сек<br>Лёжа на горизонтальной скамье, гантели над грудью. Разводите в стороны с лёгким сгибом в локтях. Опускайте ниже уровня груди, чувствуйте растяжение.</p>
+</div>
+</div>
+
+<div class="rest-block">
+<span class="rest-icon">🧘</span>
+<div class="rest-label">Растяжка — 5 минут</div>
+<p class="rest-value" style="font-size:14px;color:var(--text-dim)">Растяжка квадрицепса стоя ×30 сек каждая нога · Поза ребёнка на коленях ×40 сек · Растяжка передней дельты ×30 сек каждая рука</p>
+</div>
+</section>
+
+</main>
+<script>
+(function(){
+document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',function(){const tabId=this.getAttribute('data-tab');document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));this.classList.add('active');document.getElementById('tab-'+tabId).classList.add('active')})});
+})();
+</script>
+</body>
+</html>
